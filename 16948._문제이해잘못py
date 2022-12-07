@@ -1,0 +1,48 @@
+from collections import deque
+import sys
+
+
+n = int(input())
+visited = [[False] * n for _ in range(n)]
+sr,sc,er,ec= [int(i) for i in input().split()]
+
+
+dr = [-2,0,2]
+dc = [-1,1,-2,2,-1,1]
+min_value = sys.maxsize
+
+def dfs(sr,sc,cnt,er,ec):
+    global min_value
+    if sr == er and sc == ec:
+        min_value = min(min_value,cnt)
+        return 
+    
+    
+    for i in range(3):
+        nr = sr +dr[i]
+        for j in dc[i:i+2]:
+            nc = sc + dc[j]
+        
+        if 0 <= nr < n and 0 <= nc < n and not visited[nr][nc]:
+            dfs(nr,nc,cnt+1,er,ec)
+
+    
+    return False
+for i in range(3):
+    nr = dr[i] + sr
+    for j in range(2):
+        nc = sc + dc[i*2+j]
+        print(nr,nc)
+
+if min_value == sys.maxsize:
+    print(-1)
+else:
+    print(min_value)
+
+
+
+
+
+
+    
+    
